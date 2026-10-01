@@ -9,6 +9,15 @@
     <meta property="og:description" content="Trang web trưng bày ảnh cá nhân liên kết trực tiếp với Google Drive, tự động cập nhật và hỗ trợ triển khai GitHub Pages." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      // Auto-append trailing slash on GitHub Pages to ensure relative assets load properly
+      (function() {
+        var p = window.location.pathname;
+        if (!p.endsWith('/') && !p.split('/').pop().includes('.')) {
+          window.location.replace(p + '/' + window.location.search + window.location.hash);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

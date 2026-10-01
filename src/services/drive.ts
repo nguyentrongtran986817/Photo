@@ -97,6 +97,8 @@ export async function fetchDrivePhotos(
 
       return {
         ...file,
+        id: file.id || String(Math.random()),
+        name: file.name || 'Ảnh chưa đặt tên',
         thumbnailLink: enhancedThumbnail,
       };
     });
@@ -156,15 +158,15 @@ export function clearImageBlobCache() {
 }
 
 /**
- * Format bytes to readable size
+ * Format bytes to readable size safely
  */
 export function formatFileSize(bytesStr?: string): string {
   if (!bytesStr) return 'Không rõ';
   const bytes = parseInt(bytesStr, 10);
-  if (isNaN(bytes) || bytes === 0) return '0 B';
+  if (isNaN(bytes) || bytes <= 0) return '0 B';
   const k = 1024;
   const sizes = ['B', 'KB', 'MB', 'GB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  const i = Math.max(0, Math.min(Math.floor(Math.log(bytes) / Math.log(k)), sizes.length - 1));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
 }
 

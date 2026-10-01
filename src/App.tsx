@@ -239,26 +239,28 @@ export default function App() {
   // Filter and Sorting calculations
   const availableYears = useMemo(() => {
     const years = new Set<string>();
-    photos.forEach((p) => {
-      const dateStr = p.createdTime || p.modifiedTime;
+    (photos || []).forEach((p) => {
+      const dateStr = p?.createdTime || p?.modifiedTime;
       if (dateStr) {
-        const year = new Date(dateStr).getFullYear();
-        if (!isNaN(year)) years.add(String(year));
+        const d = new Date(dateStr);
+        if (!isNaN(d.getTime())) {
+          years.add(String(d.getFullYear()));
+        }
       }
     });
     return Array.from(years).sort((a, b) => Number(b) - Number(a));
   }, [photos]);
 
   const filteredPhotos = useMemo(() => {
-    let result = [...photos];
+    let result = [...(photos || [])];
 
     // Search query
     if (filter.searchQuery.trim() !== '') {
       const q = filter.searchQuery.toLowerCase();
       result = result.filter(
         (p) =>
-          p.name.toLowerCase().includes(q) ||
-          p.folderName?.toLowerCase().includes(q)
+          (p.name || '').toLowerCase().includes(q) ||
+          (p.folderName || '').toLowerCase().includes(q)
       );
     }
 
@@ -267,28 +269,30 @@ export default function App() {
       result = result.filter((p) => {
         const dateStr = p.createdTime || p.modifiedTime;
         if (!dateStr) return false;
-        return new Date(dateStr).getFullYear().toString() === filter.yearFilter;
+        const d = new Date(dateStr);
+        if (isNaN(d.getTime())) return false;
+        return d.getFullYear().toString() === filter.yearFilter;
       });
     }
 
     // Sorting
     result.sort((a, b) => {
       if (filter.sortBy === 'date-desc') {
-        const timeA = new Date(a.createdTime || a.modifiedTime || 0).getTime();
-        const timeB = new Date(b.createdTime || b.modifiedTime || 0).getTime();
+        const timeA = new Date(a.createdTime || a.modifiedTime || 0).getTime() || 0;
+        const timeB = new Date(b.createdTime || b.modifiedTime || 0).getTime() || 0;
         return timeB - timeA;
       }
       if (filter.sortBy === 'date-asc') {
-        const timeA = new Date(a.createdTime || a.modifiedTime || 0).getTime();
-        const timeB = new Date(b.createdTime || b.modifiedTime || 0).getTime();
+        const timeA = new Date(a.createdTime || a.modifiedTime || 0).getTime() || 0;
+        const timeB = new Date(b.createdTime || b.modifiedTime || 0).getTime() || 0;
         return timeA - timeB;
       }
       if (filter.sortBy === 'name-asc') {
-        return a.name.localeCompare(b.name);
+        return (a.name || '').localeCompare(b.name || '');
       }
       if (filter.sortBy === 'size-desc') {
-        const sizeA = parseInt(a.size || '0', 10);
-        const sizeB = parseInt(b.size || '0', 10);
+        const sizeA = parseInt(a.size || '0', 10) || 0;
+        const sizeB = parseInt(b.size || '0', 10) || 0;
         return sizeB - sizeA;
       }
       return 0;
