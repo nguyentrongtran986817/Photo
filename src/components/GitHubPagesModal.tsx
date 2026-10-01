@@ -242,48 +242,56 @@ jobs:
             <div className="space-y-4 text-xs">
               <div className="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/60 rounded-2xl p-4 text-amber-800 dark:text-amber-200">
                 <p className="font-semibold mb-1">
-                  Quan trọng: Cho phép tên miền GitHub Pages kết nối Google Drive
+                  Quan trọng: Cấp phép tên miền GitHub Pages để đăng nhập Google Drive (auth/unauthorized-domain)
                 </p>
                 <p>
-                  Để tính năng đăng nhập Google Drive hoạt động trơn tru trên tên miền GitHub Pages của bạn (ví dụ: <code>https://username.github.io</code>), bạn chỉ cần thêm tên miền này vào Google Cloud Console:
+                  Khi ứng dụng chạy trên GitHub Pages (ví dụ: <code>https://nguyentrongtran986817.github.io</code>), Firebase Authentication sẽ yêu cầu thêm tên miền này vào danh sách <strong>Authorized domains</strong>.
                 </p>
               </div>
 
               <div className="space-y-3">
                 <div className="p-3.5 rounded-2xl bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700">
                   <p className="font-semibold text-zinc-900 dark:text-white mb-1">
-                    1. Mở Google Cloud Console
+                    1. Mở trang cài đặt Firebase Console
                   </p>
                   <p className="text-zinc-600 dark:text-zinc-400">
-                    Truy cập trang <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">APIs & Services &gt; Credentials</a>.
+                    Truy cập trực tiếp:{' '}
+                    <a
+                      href="https://console.firebase.google.com/project/gen-lang-client-0673049679/authentication/settings"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-blue-600 font-semibold hover:underline"
+                    >
+                      Firebase Console &gt; Authentication &gt; Settings
+                    </a>
                   </p>
                 </div>
 
                 <div className="p-3.5 rounded-2xl bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700">
                   <p className="font-semibold text-zinc-900 dark:text-white mb-1">
-                    2. Chỉnh sửa OAuth 2.0 Client ID
-                  </p>
-                  <p className="text-zinc-600 dark:text-zinc-400">
-                    Nhấp vào Client ID web của dự án của bạn (đã được tạo sẵn trong cấu hình Firebase).
-                  </p>
-                </div>
-
-                <div className="p-3.5 rounded-2xl bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700">
-                  <p className="font-semibold text-zinc-900 dark:text-white mb-1">
-                    3. Thêm Authorized JavaScript Origins
+                    2. Thêm Authorized Domain (Miền được ủy quyền)
                   </p>
                   <p className="text-zinc-600 dark:text-zinc-400 mb-2">
-                    Thêm URL GitHub Pages của bạn vào danh sách nguồn gốc được ủy quyền:
+                    Cuộn xuống mục <strong>Authorized domains</strong>, bấm nút <strong>Add domain</strong> và nhập tên miền:
                   </p>
                   <div className="flex items-center justify-between p-2 rounded-lg bg-zinc-900 text-zinc-200 font-mono">
-                    <span>https://&lt;username&gt;.github.io</span>
+                    <span>nguyentrongtran986817.github.io</span>
                     <button
-                      onClick={() => copyToClipboard('https://<username>.github.io', 'origin')}
+                      onClick={() => copyToClipboard('nguyentrongtran986817.github.io', 'domain')}
                       className="text-blue-400 hover:underline flex items-center gap-1"
                     >
-                      {copiedText === 'origin' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                      {copiedText === 'domain' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                     </button>
                   </div>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700">
+                  <p className="font-semibold text-zinc-900 dark:text-white mb-1">
+                    3. Bấm Add (Thêm) và thử lại
+                  </p>
+                  <p className="text-zinc-600 dark:text-zinc-400">
+                    Cài đặt có hiệu lực ngay lập tức (không cần build lại code). Bạn chỉ cần quay lại trang GitHub Pages và nhấn lại nút <strong>"Kết nối Google Drive ngay"</strong> là hoàn tất!
+                  </p>
                 </div>
               </div>
             </div>

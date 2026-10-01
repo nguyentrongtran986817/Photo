@@ -357,17 +357,64 @@ export default function App() {
 
         {/* Error notification banner if any */}
         {error && (
-          <div className="flex items-center justify-between p-4 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 text-red-700 dark:text-red-300 text-sm">
-            <div className="flex items-center gap-2">
-              <AlertCircle className="w-5 h-5 shrink-0" />
-              <span>{error}</span>
+          <div className="rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 p-4 text-red-700 dark:text-red-300 text-sm">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-start gap-2.5">
+                <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-red-600 dark:text-red-400" />
+                <div>
+                  <p className="font-semibold text-red-800 dark:text-red-200">
+                    {error.includes('unauthorized-domain')
+                      ? 'Lỗi tên miền chưa được cấp phép (auth/unauthorized-domain)'
+                      : 'Đã xảy ra lỗi kết nối'}
+                  </p>
+                  <p className="text-xs text-red-600 dark:text-red-300 mt-0.5">
+                    {error.includes('unauthorized-domain')
+                      ? `Tên miền hiện tại (${typeof window !== 'undefined' ? window.location.hostname : 'GitHub Pages'}) chưa được thêm vào mục Authorized Domains của Firebase Authentication.`
+                      : error}
+                  </p>
+
+                  {error.includes('unauthorized-domain') && (
+                    <div className="mt-3 p-3 rounded-xl bg-white/80 dark:bg-zinc-900/80 border border-red-200/80 dark:border-red-900/60 text-xs text-zinc-700 dark:text-zinc-300 space-y-2">
+                      <p className="font-medium text-zinc-900 dark:text-zinc-100">
+                        👉 <strong>Cách khắc phục trong 30 giây (không cần deploy lại):</strong>
+                      </p>
+                      <ol className="list-decimal pl-4 space-y-1 text-zinc-600 dark:text-zinc-400 text-[11px]">
+                        <li>
+                          Mở trang cài đặt:{' '}
+                          <a
+                            href="https://console.firebase.google.com/project/gen-lang-client-0673049679/authentication/settings"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-blue-600 dark:text-blue-400 font-semibold underline inline-flex items-center gap-1"
+                          >
+                            Firebase Console &gt; Authentication &gt; Settings
+                          </a>
+                        </li>
+                        <li>
+                          Cuộn xuống mục <strong>Authorized domains</strong> (Miền được ủy quyền) &gt; bấm <strong>Add domain</strong> (Thêm miền).
+                        </li>
+                        <li>
+                          Nhập tên miền:{' '}
+                          <code className="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 font-mono text-zinc-900 dark:text-zinc-100 font-bold">
+                            {typeof window !== 'undefined' ? window.location.hostname : 'nguyentrongtran986817.github.io'}
+                          </code>{' '}
+                          rồi bấm <strong>Add</strong>.
+                        </li>
+                        <li>
+                          Quay lại đây và bấm nút <strong>"Kết nối Google Drive ngay"</strong> là hoàn tất!
+                        </li>
+                      </ol>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <button
+                onClick={() => setError(null)}
+                className="text-xs font-medium text-red-600 dark:text-red-400 hover:underline shrink-0"
+              >
+                Đóng
+              </button>
             </div>
-            <button
-              onClick={() => setError(null)}
-              className="text-xs font-medium hover:underline ml-4"
-            >
-              Đóng
-            </button>
           </div>
         )}
 

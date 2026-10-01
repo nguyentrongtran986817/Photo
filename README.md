@@ -50,10 +50,15 @@ git push -u origin main
 5. Bây giờ GitHub Actions sẽ tự động chạy lại hoặc bạn có thể vào tab **Actions** > chọn **Deploy to GitHub Pages** > bấm **Run workflow**.
 6. Website sẽ hoạt động tại địa chỉ: `https://nguyentrongtran986817.github.io/<ten-repo>/`
 
-### Bước 3: Cấu hình Authorized Origins cho Google Drive OAuth
-Để tính năng đăng nhập Google Drive hoạt động trên tên miền GitHub Pages của bạn:
-1. Mở [Google Cloud Console > Credentials](https://console.cloud.google.com/apis/credentials).
-2. Chọn **OAuth 2.0 Client ID** cho ứng dụng web.
-3. Trong mục **Authorized JavaScript origins**, thêm địa chỉ GitHub Pages của bạn:
-   `https://<tai-khoan-github>.github.io`
-4. Bấm **Save**.
+### Bước 3: Cấu hình Authorized Domains trong Firebase Console (Sửa lỗi auth/unauthorized-domain)
+Khi bạn chạy website trên tên miền GitHub Pages (ví dụ `nguyentrongtran986817.github.io`), Firebase Authentication sẽ chặn đăng nhập vì lý do bảo mật cho đến khi bạn cấp phép cho tên miền này.
+
+**Cách làm cực kỳ nhanh (30 giây, không cần sửa code hay deploy lại):**
+1. Mở liên kết trực tiếp đến trang cài đặt Authentication của dự án:
+   👉 **[Firebase Console Authentication Settings](https://console.firebase.google.com/project/gen-lang-client-0673049679/authentication/settings)**
+2. Kéo xuống mục **Authorized domains** (Miền được ủy quyền).
+3. Nhấp vào nút **Add domain** (Thêm miền).
+4. Nhập tên miền GitHub Pages của bạn:
+   `nguyentrongtran986817.github.io`
+5. Nhấp **Add** (Thêm).
+6. Quay lại trang GitHub Pages của bạn, tải lại trang và nhấn **"Kết nối Google Drive ngay"** — bạn sẽ đăng nhập thành công ngay lập tức!
