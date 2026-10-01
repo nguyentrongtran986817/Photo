@@ -176,6 +176,20 @@ jobs:
                 </ul>
               </div>
 
+              <div className="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/60 rounded-2xl p-4 text-xs text-amber-800 dark:text-amber-200">
+                <p className="font-semibold mb-1">
+                  ⚠️ Lưu ý quan trọng để tránh lỗi "Failed to deploy to github-pages":
+                </p>
+                <ol className="list-decimal pl-4 space-y-1">
+                  <li>
+                    <strong>Bắt buộc:</strong> Vào <strong>Settings &gt; Pages</strong> của repo trên GitHub, tại mục <strong>Source</strong>, hãy đổi từ <em>"Deploy from a branch"</em> sang <strong>"GitHub Actions"</strong>.
+                  </li>
+                  <li>
+                    Vào <strong>Settings &gt; Actions &gt; General</strong>, cuộn xuống mục <strong>Workflow permissions</strong> và chọn <strong>"Read and write permissions"</strong>.
+                  </li>
+                </ol>
+              </div>
+
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-2">
                   Bước 1: Tạo Repository mới trên GitHub

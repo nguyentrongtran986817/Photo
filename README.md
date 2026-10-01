@@ -42,12 +42,13 @@ git remote add origin https://github.com/<tai-khoan-github>/<ten-repo>.git
 git push -u origin main
 ```
 
-### Bước 2: Kích hoạt GitHub Pages
-1. Truy cập vào kho lưu trữ trên GitHub.
-2. Vào **Settings** > **Pages**.
-3. Tại phần **Build and deployment** > **Source**, chọn **GitHub Actions**.
-4. GitHub Actions sẽ tự động đọc file `.github/workflows/deploy.yml` để build và phát hành website lên địa chỉ:
-   `https://<tai-khoan-github>.github.io/<ten-repo>/`
+### Bước 2: Kích hoạt GitHub Pages (QUAN TRỌNG NHẤT)
+1. Truy cập vào kho lưu trữ trên GitHub (`https://github.com/nguyentrongtran986817/<ten-repo>`).
+2. Vào **Settings** > **Pages** (cột bên trái).
+3. Tại phần **Build and deployment** > **Source**, chuyển từ **Deploy from a branch** sang **GitHub Actions**. *(Nếu không chọn bước này, GitHub sẽ báo lỗi đỏ "Failed to deploy to github-pages").*
+4. Vào **Settings** > **Actions** > **General**, cuộn xuống dưới cùng tại mục **Workflow permissions** và chọn **Read and write permissions**, sau đó bấm **Save**.
+5. Bây giờ GitHub Actions sẽ tự động chạy lại hoặc bạn có thể vào tab **Actions** > chọn **Deploy to GitHub Pages** > bấm **Run workflow**.
+6. Website sẽ hoạt động tại địa chỉ: `https://nguyentrongtran986817.github.io/<ten-repo>/`
 
 ### Bước 3: Cấu hình Authorized Origins cho Google Drive OAuth
 Để tính năng đăng nhập Google Drive hoạt động trên tên miền GitHub Pages của bạn:
