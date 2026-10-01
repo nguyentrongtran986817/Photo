@@ -1,0 +1,6 @@
+{
+  "name": "Personal Photo Gallery - Google Drive Sync",
+  "description": "Trang web trưng bày ảnh cá nhân liên kết trực tiếp với Google Drive, tự động cập nhật và hỗ trợ triển khai GitHub Pages.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
